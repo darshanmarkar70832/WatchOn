@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - WatchOn</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    
+</head>
+<body class="font-sans bg-gray-100">
+    <%- include('../partials/header', { loggedin: true }) %>
+
+    <div class="min-h-screen flex flex-col px-4 py-6 md:px-6 lg:px-8 xl:px-10">
+        <h2 class="text-3xl font-semibold mt-8">My Account</h2>
+
+        <!-- Account Information -->
+        <div class="bg-white shadow-md rounded-lg p-6 mt-10">
+            <h3 class="text-xl font-semibold mb-4">Account Information</h3>
+            <p class="mb-2"><strong>Name:</strong> <%= user.fullname %></p>
+            <p class="mb-2"><strong>Email:</strong> <%= user.email %></p>
+            
+            <!-- Additional account details as needed -->
+        </div>
+
+        <!-- Order History -->
+      
+    </div>
+
+    <%- include('../partials/footer') %>
+
+   
+</body>
+</html>

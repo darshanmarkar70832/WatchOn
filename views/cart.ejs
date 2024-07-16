@@ -1,0 +1,94 @@
+<%- include('../partials/header') %>
+
+<% user.cart.forEach(item => { 
+    const initialBill = (Number(item.price) + 20) - Number(item.discount); %>
+    <div class="w-full flex flex-col md:flex-row items-start px-5 md:px-10 py-10 gap-10 product-container" data-price="<%= item.price %>" data-discount="<%= item.discount %>">
+        <div class="w-full md:w-[30%] rounded-md overflow-hidden shadow-lg">
+            <div class="w-full flex justify-center items-center h-52 md:h-80 bg-[<%= item.bgcolor %>]">
+                <img class="h-40 md:h-[20rem] object-cover" src="data:image/jpeg;base64,<%= item.image.toString('base64') %>" alt="">
+            </div>
+            <div class="w-full flex justify-between px-5 py-4 bg-[<%= item.panelcolor %>]">
+                <h3 class="text-lg md:text-2xl"><%= item.name %></h3>
+                <div class="flex items-center gap-2">
+                    <i class="w-6 h-6 md:w-7 md:h-7 bg-white flex rounded-full items-center justify-center ri-add-line cursor-pointer" data-action="increment"></i>
+                    <div class="px-2 py-1 rounded-md bg-white text-black quantity" data-price="<%= item.price %>">01</div>
+                    <i class="w-6 h-6 md:w-7 md:h-7 bg-white flex rounded-full items-center justify-center ri-subtract-line cursor-pointer" data-action="decrement"></i>
+                </div>
+            </div>
+            <div class="flex items-center justify-between px-5 py-3 text-white bg-[<%= item.textcolor %>]">
+                <h4 class="text-lg">Net Total</h4>
+                <h2 class="text-lg bill">₹ <%= initialBill %></h2>
+            </div>
+        </div>
+        <div class="w-full md:w-[70%] bg-white p-5 md:p-8 rounded-md shadow-lg">
+            <h3 class="text-lg md:text-2xl font-semibold mb-4">Price Breakdown</h3>
+            <div class="px-2 md:px-4">
+                <div class="flex justify-between py-2 border-b">
+                    <h4>Total MRP</h4>
+                    <h4 class="item-price">₹ <%= item.price %></h4>
+                </div>
+                <div class="flex justify-between py-2 border-b">
+                    <h4>Discount on MRP</h4>
+                    <h4 class="item-discount">₹ <%= item.discount %></h4>
+                </div>
+                <div class="flex justify-between py-2 border-b">
+                    <h4>Platform Fee</h4>
+                    <h4>₹ 20</h4>
+                </div>
+                <div class="flex justify-between py-2">
+                    <h4>Shipping Fee</h4>
+                    <h4>FREE</h4>
+                </div>
+            </div>
+            <div class="w-full h-[1px] bg-gray-300 my-4"></div>
+            <div class="flex justify-between mt-5">
+                <h3 class="text-lg md:text-xl">Total Amount</h3>
+                <h3 class="font-semibold text-lg md:text-xl text-green-600 total-bill">₹ <%= initialBill %></h3>
+            </div>
+            <form action="" class="mt-6">
+                <button class="w-full py-2 md:py-3 bg-blue-500 hover:bg-blue-600 text-white text-lg font-semibold rounded-md transition duration-300">Proceed to Checkout</button>
+            </form>
+        </div>
+    </div>
+<% }); %>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const updateBill = (container) => {
+            const quantityElement = container.querySelector('.quantity');
+            const quantity = parseInt(quantityElement.innerText);
+            const price = parseFloat(container.dataset.price);
+            const discount = parseFloat(container.dataset.discount);
+            const netTotalElement = container.querySelector('.bill');
+            const totalBillElement = container.querySelector('.total-bill');
+
+            const netTotal = (price * quantity + 20) - discount;
+            netTotalElement.innerText = `₹ ${netTotal.toFixed(2)}`;
+            totalBillElement.innerText = `₹ ${netTotal.toFixed(2)}`;
+        };
+
+        document.querySelectorAll('[data-action="increment"]').forEach(button => {
+            button.addEventListener('click', function() {
+                const quantityElement = this.nextElementSibling;
+                let quantity = parseInt(quantityElement.innerText);
+                quantity += 1;
+                quantityElement.innerText = quantity.toString().padStart(2, '0');
+                updateBill(this.closest('.product-container'));
+            });
+        });
+
+        document.querySelectorAll('[data-action="decrement"]').forEach(button => {
+            button.addEventListener('click', function() {
+                const quantityElement = this.previousElementSibling;
+                let quantity = parseInt(quantityElement.innerText);
+                if (quantity > 1) {
+                    quantity -= 1;
+                    quantityElement.innerText = quantity.toString().padStart(2, '0');
+                    updateBill(this.closest('.product-container'));
+                }
+            });
+        });
+    });
+</script>
+
+<%- include('../partials/footer') %>

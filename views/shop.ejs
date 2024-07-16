@@ -1,0 +1,86 @@
+<%- include('../partials/header') %>
+
+<% if(success.length > 0) { %>
+    <div class="absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-blue-800 z-10">
+        <span class="inline-block mt-2 mb-1 text-white">
+            <%= success %>
+        </span>
+    </div>
+<% } %>
+<% if(info.length > 0) { %>
+    <div class="absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-blue-800 z-10">
+        <span class="inline-block mt-2 mb-1 text-white">
+            <%= info %>
+        </span>
+    </div>
+<% } %>
+<% if(error.length > 0) { %>
+    <div class="absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-blue-800 z-10">
+        <span class="inline-block mt-2 mb-1 text-white">
+            <%= error %>
+        </span>
+    </div>
+<% } %>
+
+<div class="w-full h-screen flex flex-col px-6 py-6 bg-[#EDE8F5]">
+    <div class="flex flex-col sm:flex-row items-start gap-6">
+        <div class="w-full sm:w-[25%] flex flex-col items-start">
+            <div class="flex items-center gap-2 mt-12">
+                <h3>Sort by</h3>
+                <form action="/products" method="get">
+                    <select class="border-[1px] px-2 py-1" name="sortby" id="sortby" onchange="this.form.submit()">
+                        <option value="popular">Popular</option>
+                        <option value="newest">Newest</option>
+                    </select>
+                </form>
+            </div>
+            <div class="flex flex-col mt-6 sm:mt-20">
+               
+                <a class="block mb-2" href="/products">All Products</a>
+                <a class="block mb-2" href="/products/filter/discount">Discounted Products</a>
+               
+               
+            </div>
+        </div>
+        
+        <div class="w-full sm:w-[75%] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6" id="products">
+            <% products.forEach(function(product, index) { %>
+                <div class="w-full products" id="product<%= index %>">
+                    <div class="w-full h-52 flex items-center justify-center bg-[<%= product.bgcolor %>]">
+                        <img class="h-[13rem] object-cover" src="data:image/jpeg;base64,<%= product.image.toString('base64') %>" alt="">
+                    </div>
+                    <div class="flex justify-between bg-[<%= product.panelcolor %>] items-center px-4 py-4 text-[<%= product.textcolor %>]">
+                        <div>
+                            <h3><%= product.name %></h3>
+                            <h4>₹ <%= product.price %></h4>
+                        </div>
+                        <a class="w-7 h-7 flex items-center justify-center rounded-full bg-white" href="/addtocart/<%= product._id %>">
+                            <i class="ri-add-line"></i>
+                        </a>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" integrity="sha512-8I7BrxI6mVcA94Kr6WRO+5Hmq0J3OZ0GGvB6p/KzL/RisLz5kFMPc4R7Bm8NLhJ9NHEHvF/Hf8Dl4+ZR16A3bg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const tl = gsap.timeline();
+        tl.from(".products", {
+            y: 200,
+            opacity: 0,
+            delay: 0.1,
+            duration: 1,
+            stagger: 0.2
+        });
+
+       
+       
+    });
+  
+</script>
+
+<%- include('../partials/footer') %>

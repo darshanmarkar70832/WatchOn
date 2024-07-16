@@ -1,5 +1,10 @@
 const mongoose = require("mongoose")
-mongoose.connect("mongodb://localhost:27017/watchon")
+const config = require("config")
+
+const dbgr = require("debug")("development:mongoose")
+
+
+mongoose.connect(`${config.get("MONGODB_URI")}/watchon`)
 .then(()=>{
     console.log("connected")
 })

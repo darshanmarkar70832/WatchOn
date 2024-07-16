@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Hide the menu by default */
+        .menu-hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="font-['helvetica_now_display'] bg-[#EDE8F5] min-h-screen">
+    <nav class="w-full fixed top-0 left-0 px-5 py-3 flex justify-between items-center bg-opacity-80 shadow-lg z-10 bg-white">
+        <h3 class="text-xl">WatchOn</h3>
+        <% var loggedin = typeof loggedin !== "undefined" ? loggedin : true %>
+        <% if (loggedin) { %>
+        <div class="hidden md:flex gap-5 navv">
+            <a href="/shop">Shop</a>
+            <a href="/cart">Cart</a>
+            <a href="/account">My Account</a>
+            <a class="text-red-600" href="/users/logout">Logout</a>
+        </div>
+        <!-- Hamburger Menu -->
+        <div class="md:hidden flex items-center">
+            <button id="hamburger" class="focus:outline-none">
+                <i class="ri-menu-line text-2xl"></i>
+            </button>
+        </div>
+        <% } %>
+    </nav>
+    <% if (loggedin) { %>
+    <div id="mobile-menu" class="menu-hidden w-full bg-white shadow-lg fixed top-14 left-0 px-5 py-3 md:hidden">
+        <a class="block py-2" href="/shop">Shop</a>
+        <a class="block py-2" href="/cart">Cart</a>
+        <a class="block py-2" href="/account">My Account</a>
+        <a class="block py-2 text-red-600" href="/users/logout">Logout</a>
+    </div>
+    <% } %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        gsap.from("h3", {
+            y: -30,
+            opacity: 0,
+            delay: 0.2,
+            duration: 1,
+        });
+        var tl = gsap.timeline();
+        tl.from("nav a", {
+            y: -30,
+            opacity: 0,
+            delay: 0.2,
+            duration: 1,
+            stagger: 0.2
+        });
+
+        // Hamburger menu toggle with animation
+        document.getElementById('hamburger').addEventListener('click', function () {
+            const menu = document.getElementById('mobile-menu');
+            const menuLinks = menu.querySelectorAll('a');
+
+            // Toggle menu visibility
+            menu.classList.toggle('menu-hidden');
+
+            // Animate links when menu opens
+            if (!menu.classList.contains('menu-hidden')) {
+                gsap.from(menuLinks, {
+                    x: -100,
+                    opacity: 0,
+                    duration: 0.5,
+                    stagger: 0.1,
+                    ease: "power2.out"
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
