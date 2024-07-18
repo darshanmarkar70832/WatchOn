@@ -12,12 +12,17 @@ router.post("/create", async (req, res) => {
         if (owners.length > 0) {
             return res.status(403).send("Cannot create a new owner. An owner already exists.");
         }
+
         let { fullname, email, password } = req.body;
+        const salt = await bcrypt.genSalt(10);
+        const hash = await bcrypt.hash(password, salt);
+        
         let createdOwner = await ownerModel.create({
             fullname,
             email,
-            password
+            password: hash
         });
+
         res.status(201).send(createdOwner);
     } catch (error) {
         res.status(500).send(error.message);
@@ -57,11 +62,11 @@ router.post("/login", async (req, res) => {
 });
 
 // Route to display admin dashboard (requires login)
-
 router.get("/admin", isLoggedIn, (req, res) => {
     let success = req.flash("success");
     res.render("admin", { success });
 });
+
 router.get("/owner-login", isLoggedIn, (req, res) => {
     let success = req.flash("success");
     res.render("owner-login", { success });

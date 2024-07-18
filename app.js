@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+
 const cookieParser = require("cookie-parser");
 const path = require("path");
 const ownersRouter = require("./routes/ownersRouter");
@@ -17,6 +18,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+
 app.use(expressSession({
     secret: "secret",
     resave: false,
@@ -28,8 +30,8 @@ app.use(flash());
 app.use(express.static(path.join(__dirname, "public")));
 app.set("view engine", "ejs");
 
-// Ensure admin routes are correctly configured
-app.use("/owners", ownersRouter); // Assuming /owners routes are for admin
+
+app.use("/owners", ownersRouter); 
 app.use("/users", usersRouter);
 app.use("/products", productsRouter);
 app.use("/", indexRouter);
