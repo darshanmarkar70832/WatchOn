@@ -1,10 +1,12 @@
 const mongoose = require("mongoose")
 const config = require("config")
+const { MONGODB_URI, JWT_KEY } = process.env;
+
 
 const dbgr = require("debug")("development:mongoose")
 
 
-mongoose.connect(`${config.get("MONGODB_URI")}/watchon`)
+mongoose.connect(MONGODB_URI)
 .then(()=>{
     console.log("connected")
 })
