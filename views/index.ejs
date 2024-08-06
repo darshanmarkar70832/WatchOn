@@ -68,7 +68,7 @@
 
     <!-- Introduction Section -->
     <section class="py-12 px-4 text-center mt-18 rounded-lg shadow-lg">
-        <div class="container mx-auto mt-4">
+        <div class="container mx-auto mt-4 desc">
             <h1 class="text-4xl mb-2">Welcome to <span class="text-blue-400 font-semibold">WatchOn</span></h1>
             <p class="text-xl mb-2 text-black">WatchOn is your ultimate destination for discovering and managing the latest trends in watches. Whether you’re looking for luxury timepieces or stylish everyday wear, we’ve got you covered.</p>
             <p class="text-xl text-black">Join us and explore a curated collection of watches that blend timeless elegance with modern sophistication. Start your journey with WatchOn by creating your account today!</p>
@@ -142,6 +142,12 @@
             });
             gsap.from(".login", {
                 x: 200,
+                opacity: 0,
+                delay: 0.2,
+                duration: 1
+            });
+            gsap.from(".desc", {
+                y: -200,
                 opacity: 0,
                 delay: 0.2,
                 duration: 1
