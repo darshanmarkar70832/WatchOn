@@ -33,6 +33,21 @@
         .input-container .input-field {
             padding-right: 2.5rem; /* Extra space for the eye icon */
         }
+        .scrolling-text-container {
+            overflow: hidden;
+            white-space: nowrap;
+            box-sizing: border-box;
+            width: 100%;
+            position: relative;
+            background-color: #f3f4f6;
+            padding: 1rem 0;
+        }
+        .scrolling-text {
+            display: inline-block;
+            padding-left: 100%;
+            font-size: 1.25rem;
+            color: #333;
+        }
     </style>
 </head>
 <body class="bg-[#EDE8F5]">
@@ -43,6 +58,13 @@
     </div>
 
     <%- include('../partials/header') %>
+
+    <!-- Scrolling Text Section -->
+    <div class="scrolling-text-container ">
+        <div class="scrolling-text mt-10">
+            Discover the latest trends in watches at WatchOn - Your ultimate destination for luxury and everyday timepieces!
+        </div>
+    </div>
 
     <!-- Introduction Section -->
     <section class="py-12 px-4 text-center mt-18 rounded-lg shadow-lg">
@@ -143,7 +165,16 @@
                     icon.classList.add('fa-eye');
                 }
             };
+
+            // GSAP scrolling text animation
+            gsap.to(".scrolling-text", {
+                xPercent: -100,
+                duration: 15,
+                repeat: -1,
+                ease: "linear"
+            });
         });
     </script>
+    
 </body>
 </html>
