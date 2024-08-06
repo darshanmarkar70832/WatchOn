@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WatchOn</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .required::after {
+            content: '*';
+            color: red;
+            margin-left: 0.25rem;
+        }
+    </style>
 </head>
 <body class="bg-[#EDE8F5]">
     <!-- Loading Spinner -->
@@ -28,27 +36,51 @@
             <div class="w-full md:px-32 px-4 welcome mb-10 md:mb-0">
                 <h1 class="text-4xl text-center md:text-left mb-5">Welcome to <span class="text-blue-400 font-semibold">WatchOn</span></h1>
                 <h4 class="text-2xl mb-5 text-center md:text-left">Create your account</h4>
-                <form autocomplete="off" action="/users/register" method="post">
-                    <input class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200" type="text" placeholder="Full Name" name="fullname">
-                    <input class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200" type="email" placeholder="Email" name="email">
-                    <input class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200" type="password" placeholder="Password" name="password">
-                    <input class="px-5 rounded-full py-3 mt-2 bg-blue-500 text-white w-full cursor-pointer hover:bg-blue-800" type="submit" value="Create My Account">
+                <div id="register-error" class="text-red-500 mb-3 hidden">Please fill all the required fields.</div>
+                <form autocomplete="off" action="/users/register" method="post" id="register-form">
+                    <div class="relative mb-3">
+                        <input id="register-fullname" class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200" type="text" placeholder="Full Name" name="fullname" aria-required="true">
+                        <span class="absolute inset-y-0 right-0 flex items-center px-3 text-red-500">*</span>
+                    </div>
+                    <div class="relative mb-3">
+                        <input id="register-email" class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200" type="email" placeholder="Email" name="email" aria-required="true">
+                        <span class="absolute inset-y-0 right-0 flex items-center px-3 text-red-500">*</span>
+                    </div>
+                    <div class="relative mb-3">
+                        <input id="register-password" class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md border-zinc-200 pr-10" type="password" placeholder="Password" name="password" aria-required="true">
+                        <span class="absolute inset-y-0 right-0 flex items-center px-3 text-red-500">*</span>
+                        <button type="button" onclick="togglePasswordVisibility('register-password')" class="absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
+                            <i id="register-password-icon" class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <input id="register-submit" class="px-5 rounded-full py-3 mt-2 bg-blue-500 text-white w-full cursor-pointer hover:bg-blue-800" type="submit" value="Create My Account" disabled>
                 </form>
             </div>
         </div>
         <div class="w-full md:w-1/2 flex flex-col items-center justify-center md:h-screen pt-20 md:py-0">
             <div class="w-full md:px-32 px-4 login mt-[18vh] md:mb-0">
                 <h4 class="text-2xl capitalize mb-5 text-center md:text-left">Login to your account</h4>
-                <form autocomplete="off" action="/users/login" method="post">
-                    <input class="block bg-zinc-100 w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200" type="email" placeholder="Email" name="email">
-                    <input class="block bg-zinc-100 w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200" type="password" placeholder="Password" name="password">
-                    <input class="px-5 block rounded-full py-3 mt-2 bg-blue-500 text-white w-full cursor-pointer hover:bg-blue-800" type="submit" value="Login">
+                <div id="login-error" class="text-red-500 mb-3 hidden">Please fill all the required fields.</div>
+                <form autocomplete="off" action="/users/login" method="post" id="login-form">
+                    <div class="relative mb-3">
+                        <input id="login-email" class="block bg-zinc-100 w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200" type="email" placeholder="Email" name="email" aria-required="true">
+                        <span class="absolute inset-y-0 right-0 flex items-center px-3 text-red-500">*</span>
+                    </div>
+                    <div class="relative mb-3">
+                        <input id="login-password" class="block bg-zinc-100 w-full px-3 py-2 border-[1px] rounded-md border-zinc-200 pr-10" type="password" placeholder="Password" name="password" aria-required="true">
+                        <span class="absolute inset-y-0 right-0 flex items-center px-3 text-red-500">*</span>
+                        <button type="button" onclick="togglePasswordVisibility('login-password')" class="absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
+                            <i id="login-password-icon" class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <input id="login-submit" class="px-5 block rounded-full py-3 mt-2 bg-blue-500 text-white w-full cursor-pointer hover:bg-blue-800" type="submit" value="Login" disabled>
                 </form>
             </div>
         </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // GSAP animations
@@ -68,7 +100,75 @@
             // Hide the spinner after the page loads
             const spinnerWrapper = document.getElementById('spinner-wrapper');
             spinnerWrapper.style.display = 'none';
+
+            // Form validation
+            const registerForm = document.getElementById('register-form');
+            const loginForm = document.getElementById('login-form');
+
+            const registerFields = ['register-fullname', 'register-email', 'register-password'];
+            const loginFields = ['login-email', 'login-password'];
+
+            function validateForm(fields, errorElementId, submitButtonId) {
+                const submitButton = document.getElementById(submitButtonId);
+                const errorElement = document.getElementById(errorElementId);
+                const isEmpty = fields.some(fieldId => {
+                    const field = document.getElementById(fieldId);
+                    return !field.value.trim();
+                });
+
+                if (isEmpty) {
+                    errorElement.classList.remove('hidden');
+                    submitButton.disabled = true;
+                } else {
+                    errorElement.classList.add('hidden');
+                    submitButton.disabled = false;
+                }
+            }
+
+            function handleFormSubmit(formId, errorElementId, fields) {
+                document.getElementById(formId).addEventListener('submit', function(event) {
+                    const isEmpty = fields.some(fieldId => {
+                        const field = document.getElementById(fieldId);
+                        return !field.value.trim();
+                    });
+
+                    if (isEmpty) {
+                        event.preventDefault();
+                        document.getElementById(errorElementId).classList.remove('hidden');
+                    }
+                });
+            }
+
+            registerFields.forEach(fieldId => {
+                document.getElementById(fieldId).addEventListener('input', () => {
+                    validateForm(registerFields, 'register-error', 'register-submit');
+                });
+            });
+
+            loginFields.forEach(fieldId => {
+                document.getElementById(fieldId).addEventListener('input', () => {
+                    validateForm(loginFields, 'login-error', 'login-submit');
+                });
+            });
+
+            handleFormSubmit('register-form', 'register-error', registerFields);
+            handleFormSubmit('login-form', 'login-error', loginFields);
         });
+
+        // Function to toggle password visibility
+        function togglePasswordVisibility(id) {
+            const passwordField = document.getElementById(id);
+            const icon = document.getElementById(id + '-icon');
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                passwordField.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
     </script>
     <%- include('../partials/footer') %>
 </body>
