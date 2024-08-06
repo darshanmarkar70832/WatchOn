@@ -10,7 +10,28 @@
         .required::after {
             content: '*';
             color: red;
-            margin-left: 0.25rem;
+            margin-left: 0.45rem;
+        }
+        .input-container {
+            position: relative;
+        }
+        .input-container .asterisk {
+            position: absolute;
+            right: 0.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: red;
+        }
+        .input-container .eye-icon {
+            position: absolute;
+            right: 1.1rem; 
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: gray;
+        }
+        .input-container .input-field {
+            padding-right: 2.5rem; 
         }
     </style>
 </head>
@@ -38,20 +59,18 @@
                 <h4 class="text-2xl mb-5 text-center md:text-left">Create your account</h4>
                 <div id="register-error" class="text-red-500 mb-3 hidden">Please fill all the required fields.</div>
                 <form autocomplete="off" action="/users/register" method="post" id="register-form">
-                    <div class="relative mb-3">
-                        <input id="register-fullname" class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200" type="text" placeholder="Full Name" name="fullname" aria-required="true">
-                        <span class="absolute inset-y-0 right-0 flex items-center px-3 text-red-500">*</span>
+                    <div class="input-container mb-3">
+                        <input id="register-fullname" class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200 input-field" type="text" placeholder="Full Name" name="fullname" aria-required="true">
+                        <span class="asterisk">*</span>
                     </div>
-                    <div class="relative mb-3">
-                        <input id="register-email" class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200" type="email" placeholder="Email" name="email" aria-required="true">
-                        <span class="absolute inset-y-0 right-0 flex items-center px-3 text-red-500">*</span>
+                    <div class="input-container mb-3">
+                        <input id="register-email" class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200 input-field" type="email" placeholder="Email" name="email" aria-required="true">
+                        <span class="asterisk">*</span>
                     </div>
-                    <div class="relative mb-3">
-                        <input id="register-password" class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md border-zinc-200 pr-10" type="password" placeholder="Password" name="password" aria-required="true">
-                        <span class="absolute inset-y-0 right-0 flex items-center px-3 text-red-500">*</span>
-                        <button type="button" onclick="togglePasswordVisibility('register-password')" class="absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
-                            <i id="register-password-icon" class="fas fa-eye"></i>
-                        </button>
+                    <div class="input-container mb-3">
+                        <input id="register-password" class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md border-zinc-200 input-field" type="password" placeholder="Password" name="password" aria-required="true">
+                        <span class="asterisk">*</span>
+                        <i id="register-password-icon" class="eye-icon fas fa-eye" onclick="togglePasswordVisibility('register-password')"></i>
                     </div>
                     <input id="register-submit" class="px-5 rounded-full py-3 mt-2 bg-blue-500 text-white w-full cursor-pointer hover:bg-blue-800" type="submit" value="Create My Account" disabled>
                 </form>
@@ -62,16 +81,14 @@
                 <h4 class="text-2xl capitalize mb-5 text-center md:text-left">Login to your account</h4>
                 <div id="login-error" class="text-red-500 mb-3 hidden">Please fill all the required fields.</div>
                 <form autocomplete="off" action="/users/login" method="post" id="login-form">
-                    <div class="relative mb-3">
-                        <input id="login-email" class="block bg-zinc-100 w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200" type="email" placeholder="Email" name="email" aria-required="true">
-                        <span class="absolute inset-y-0 right-0 flex items-center px-3 text-red-500">*</span>
+                    <div class="input-container mb-3">
+                        <input id="login-email" class="block bg-zinc-100 w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200 input-field" type="email" placeholder="Email" name="email" aria-required="true">
+                        <span class="asterisk">*</span>
                     </div>
-                    <div class="relative mb-3">
-                        <input id="login-password" class="block bg-zinc-100 w-full px-3 py-2 border-[1px] rounded-md border-zinc-200 pr-10" type="password" placeholder="Password" name="password" aria-required="true">
-                        <span class="absolute inset-y-0 right-0 flex items-center px-3 text-red-500">*</span>
-                        <button type="button" onclick="togglePasswordVisibility('login-password')" class="absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
-                            <i id="login-password-icon" class="fas fa-eye"></i>
-                        </button>
+                    <div class="input-container mb-3">
+                        <input id="login-password" class="block bg-zinc-100 w-full px-3 py-2 border-[1px] rounded-md border-zinc-200 input-field" type="password" placeholder="Password" name="password" aria-required="true">
+                        <span class="asterisk">*</span>
+                        <i id="login-password-icon" class="eye-icon fas fa-eye" onclick="togglePasswordVisibility('login-password')"></i>
                     </div>
                     <input id="login-submit" class="px-5 block rounded-full py-3 mt-2 bg-blue-500 text-white w-full cursor-pointer hover:bg-blue-800" type="submit" value="Login" disabled>
                 </form>
@@ -135,6 +152,8 @@
                     if (isEmpty) {
                         event.preventDefault();
                         document.getElementById(errorElementId).classList.remove('hidden');
+                    } else {
+                        document.getElementById(errorElementId).classList.add('hidden');
                     }
                 });
             }
