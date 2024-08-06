@@ -62,6 +62,7 @@
     <% } %>
 
     <div class="min-h-screen flex flex-col md:flex-row px-4 md:px-20 items-center mt-10 md:mt-[-13rem]">
+        <!-- Registration Form -->
         <div class="w-full md:w-1/2 flex flex-col items-center justify-center md:h-screen pt-10 md:pt-20">
             <div class="w-full md:px-10 px-4 welcome mb-10 md:mb-0">
                 <h4 class="text-2xl mb-5 text-center">Create your account</h4>
@@ -80,10 +81,12 @@
                         <span class="asterisk">*</span>
                         <i id="register-password-icon" class="eye-icon fas fa-eye" onclick="togglePasswordVisibility('register-password')"></i>
                     </div>
-                    <input id="register-submit" class="px-5 rounded-full py-3 mt-2 bg-blue-500 text-white w-full cursor-pointer hover:bg-blue-800" type="submit" value="Create My Account" disabled>
+                    <input id="register-submit" class="px-5 rounded-full py-3 mt-2 bg-blue-500 text-white w-full cursor-pointer hover:bg-blue-800" type="submit" value="Create My Account">
                 </form>
             </div>
         </div>
+
+        <!-- Login Form -->
         <div class="w-full md:w-1/2 flex flex-col items-center justify-center md:h-screen pt-[8.5rem]">
             <div class="w-full md:px-10 px-4 login mt-[-7rem] md:mt-0">
                 <h4 class="text-2xl capitalize mb-5 text-center">Login to your account</h4>
@@ -98,7 +101,7 @@
                         <span class="asterisk">*</span>
                         <i id="login-password-icon" class="eye-icon fas fa-eye" onclick="togglePasswordVisibility('login-password')"></i>
                     </div>
-                    <input id="login-submit" class="px-5 block rounded-full py-3 mt-2 bg-blue-500 text-white w-full cursor-pointer hover:bg-blue-800" type="submit" value="Login" disabled>
+                    <input id="login-submit" class="px-5 block rounded-full py-3 mt-2 bg-blue-500 text-white w-full cursor-pointer hover:bg-blue-800" type="submit" value="Login">
                 </form>
             </div>
         </div>
@@ -125,40 +128,6 @@
             // Hide the spinner after the page loads
             const spinnerWrapper = document.getElementById('spinner-wrapper');
             spinnerWrapper.style.display = 'none';
-
-            // Form validation
-            const registerForm = document.getElementById('register-form');
-            const loginForm = document.getElementById('login-form');
-
-            const registerFields = ['register-fullname', 'register-email', 'register-password'];
-            const loginFields = ['login-email', 'login-password'];
-
-            function validateForm(fields, errorElementId, submitButtonId) {
-                const submitButton = document.getElementById(submitButtonId);
-                const errorElement = document.getElementById(errorElementId);
-                const isEmpty = fields.some(fieldId => {
-                    const field = document.getElementById(fieldId);
-                    return !field.value.trim();
-                });
-
-                if (isEmpty) {
-                    errorElement.classList.remove('hidden');
-                    submitButton.disabled = true;
-                } else {
-                    errorElement.classList.add('hidden');
-                    submitButton.disabled = false;
-                }
-            }
-
-            function handleFormSubmit(formId, errorElementId, fields) {
-                const form = document.getElementById(formId);
-                form.addEventListener('input', function() {
-                    validateForm(fields, errorElementId, `${formId}-submit`);
-                });
-            }
-
-            handleFormSubmit('register-form', 'register-error', registerFields);
-            handleFormSubmit('login-form', 'login-error', loginFields);
 
             // Toggle password visibility
             window.togglePasswordVisibility = function(id) {

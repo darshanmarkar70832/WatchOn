@@ -9,6 +9,7 @@ const { generateToken } = require("../utils/generateToken");
 router.post("/register", async (req, res) => {
     try {
         let { email, password, fullname } = req.body;
+        if(!email || !password || !fullname) return res.status(401).send("Enter all the required fields");
         let user = await userModel.findOne({ email: email });
         if (user) {
             return res.status(409).send("Account already registered!");
@@ -36,6 +37,7 @@ router.post("/register", async (req, res) => {
 // Login a user
 router.post("/login", async (req, res) => {
     let { email, password } = req.body;
+    if(!email || !password) return res.status(401).send("Enter all the required fields");
     let user = await userModel.findOne({ email: email });
     if (!user) return res.status(401).send("Email or password is incorrect!");
 
