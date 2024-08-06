@@ -10,28 +10,28 @@
         .required::after {
             content: '*';
             color: red;
-            margin-left: 0.45rem;
+            margin-left: 0.25rem;
         }
         .input-container {
             position: relative;
         }
         .input-container .asterisk {
             position: absolute;
-            right: 0.5rem;
+            right: 3.5rem; /* Adjust this value to position asterisk left of eye icon */
             top: 50%;
             transform: translateY(-50%);
             color: red;
         }
         .input-container .eye-icon {
             position: absolute;
-            right: 1.1rem; 
+            right: 1rem; /* Adjust this value to position eye icon */
             top: 50%;
             transform: translateY(-50%);
             cursor: pointer;
             color: gray;
         }
         .input-container .input-field {
-            padding-right: 2.5rem; 
+            padding-right: 2.5rem; /* Extra space for the eye icon */
         }
     </style>
 </head>
@@ -44,6 +44,15 @@
 
     <%- include('../partials/header') %>
 
+    <!-- Introduction Section -->
+    <section class="py-12 px-4 text-center mt-18 rounded-lg shadow-lg">
+        <div class="container mx-auto">
+            <h1 class="text-4xl mb-5">Welcome to <span class="text-blue-400 font-semibold">WatchOn</span></h1>
+            <p class="text-xl mb-2 text-black">WatchOn is your ultimate destination for discovering and managing the latest trends in watches. Whether you’re looking for luxury timepieces or stylish everyday wear, we’ve got you covered.</p>
+            <p class="text-xl text-black">Join us and explore a curated collection of watches that blend timeless elegance with modern sophistication. Start your journey with WatchOn by creating your account today!</p>
+        </div>
+    </section>
+
     <% if(error && error.length > 0) { %>
         <div class="absolute top-14 left-1/2 transform -translate-x-1/2 p-3 rounded-md bg-red-500 md:top-20 lg:top-24 xl:top-28 2xl:top-32">
             <span class="inline-block mt-1 mb-1 text-white">
@@ -52,11 +61,10 @@
         </div>
     <% } %>
 
-    <div class="min-h-screen flex flex-col md:flex-row px-4 md:px-20 items-center">
-        <div class="w-full md:w-1/2 flex flex-col items-center justify-center md:h-screen pt-20 md:py-0">
-            <div class="w-full md:px-32 px-4 welcome mb-10 md:mb-0">
-                <h1 class="text-4xl text-center md:text-left mb-5">Welcome to <span class="text-blue-400 font-semibold">WatchOn</span></h1>
-                <h4 class="text-2xl mb-5 text-center md:text-left">Create your account</h4>
+    <div class="min-h-screen flex flex-col md:flex-row px-4 md:px-20 items-center mt-10 md:mt-[-13rem]">
+        <div class="w-full md:w-1/2 flex flex-col items-center justify-center md:h-screen pt-10 md:pt-20">
+            <div class="w-full md:px-10 px-4 welcome mb-10 md:mb-0">
+                <h4 class="text-2xl mb-5 text-center">Create your account</h4>
                 <div id="register-error" class="text-red-500 mb-3 hidden">Please fill all the required fields.</div>
                 <form autocomplete="off" action="/users/register" method="post" id="register-form">
                     <div class="input-container mb-3">
@@ -76,9 +84,9 @@
                 </form>
             </div>
         </div>
-        <div class="w-full md:w-1/2 flex flex-col items-center justify-center md:h-screen pt-20 md:py-0">
-            <div class="w-full md:px-32 px-4 login mt-[18vh] md:mb-0">
-                <h4 class="text-2xl capitalize mb-5 text-center md:text-left">Login to your account</h4>
+        <div class="w-full md:w-1/2 flex flex-col items-center justify-center md:h-screen pt-[8.5rem]">
+            <div class="w-full md:px-10 px-4 login mt-[-7rem] md:mt-0">
+                <h4 class="text-2xl capitalize mb-5 text-center">Login to your account</h4>
                 <div id="login-error" class="text-red-500 mb-3 hidden">Please fill all the required fields.</div>
                 <form autocomplete="off" action="/users/login" method="post" id="login-form">
                     <div class="input-container mb-3">
@@ -143,52 +151,30 @@
             }
 
             function handleFormSubmit(formId, errorElementId, fields) {
-                document.getElementById(formId).addEventListener('submit', function(event) {
-                    const isEmpty = fields.some(fieldId => {
-                        const field = document.getElementById(fieldId);
-                        return !field.value.trim();
-                    });
-
-                    if (isEmpty) {
-                        event.preventDefault();
-                        document.getElementById(errorElementId).classList.remove('hidden');
-                    } else {
-                        document.getElementById(errorElementId).classList.add('hidden');
-                    }
+                const form = document.getElementById(formId);
+                form.addEventListener('input', function() {
+                    validateForm(fields, errorElementId, `${formId}-submit`);
                 });
             }
-
-            registerFields.forEach(fieldId => {
-                document.getElementById(fieldId).addEventListener('input', () => {
-                    validateForm(registerFields, 'register-error', 'register-submit');
-                });
-            });
-
-            loginFields.forEach(fieldId => {
-                document.getElementById(fieldId).addEventListener('input', () => {
-                    validateForm(loginFields, 'login-error', 'login-submit');
-                });
-            });
 
             handleFormSubmit('register-form', 'register-error', registerFields);
             handleFormSubmit('login-form', 'login-error', loginFields);
-        });
 
-        // Function to toggle password visibility
-        function togglePasswordVisibility(id) {
-            const passwordField = document.getElementById(id);
-            const icon = document.getElementById(id + '-icon');
-            if (passwordField.type === 'password') {
-                passwordField.type = 'text';
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
-            } else {
-                passwordField.type = 'password';
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
-            }
-        }
+            // Toggle password visibility
+            window.togglePasswordVisibility = function(id) {
+                const input = document.getElementById(id);
+                const icon = document.getElementById(id + '-icon');
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                } else {
+                    input.type = 'password';
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                }
+            };
+        });
     </script>
-    <%- include('../partials/footer') %>
 </body>
 </html>
