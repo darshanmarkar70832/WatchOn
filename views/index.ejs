@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* Custom styles */
         .required::after {
             content: '*';
             color: red;
@@ -48,6 +49,14 @@
             font-size: 1.25rem;
             color: #333;
         }
+        @media (max-width: 768px) {
+            #login-section {
+                display: none;
+            }
+            #login-button {
+                display: block;
+            }
+        }
     </style>
 </head>
 <body class="bg-[#EDE8F5]">
@@ -60,7 +69,7 @@
     <%- include('../partials/header') %>
 
     <!-- Scrolling Text Section -->
-    <div class="scrolling-text-container ">
+    <div class="scrolling-text-container">
         <div class="scrolling-text mt-10">
             Discover the latest trends in watches at WatchOn - Your ultimate destination for luxury and everyday timepieces!
         </div>
@@ -86,7 +95,7 @@
     <div class="min-h-screen flex flex-col md:flex-row px-4 md:px-20 items-center mt-10 md:mt-[-13rem]">
         <!-- Registration Form -->
         <div class="w-full md:w-1/2 flex flex-col items-center justify-center md:h-screen pt-10 md:pt-20">
-            <div class="w-full md:px-10 px-4 welcome mb-10 md:mb-0">
+            <div class="w-full md:px-10 px-4 welcome mb-10 md:mb-0" id="register-section">
                 <h4 class="text-2xl mb-5 text-center">Create your account</h4>
                 <div id="register-error" class="text-red-500 mb-3 hidden">Please fill all the required fields.</div>
                 <form autocomplete="off" action="/users/register" method="post" id="register-form">
@@ -105,11 +114,13 @@
                     </div>
                     <input id="register-submit" class="px-5 rounded-full py-3 mt-2 bg-blue-500 text-white w-full cursor-pointer hover:bg-blue-800" type="submit" value="Create My Account">
                 </form>
+                <h1 class="text-blue-500 pt-[1.5rem] text-center block md:hidden">Already have an account</h1>
+                <button id="login-button" class="mt-4 px-5 py-3 bg-blue-500 text-white rounded-full w-full cursor-pointer md:hidden "> Login</button>
             </div>
         </div>
 
         <!-- Login Form -->
-        <div class="w-full md:w-1/2 flex flex-col items-center justify-center md:h-screen pt-[8.5rem]">
+        <div class="w-full md:w-1/2 flex flex-col items-center justify-center md:h-screen pt-[8.5rem]" id="login-section">
             <div class="w-full md:px-10 px-4 login mt-[-7rem] md:mt-0">
                 <h4 class="text-2xl capitalize mb-5 text-center">Login to your account</h4>
                 <div id="login-error" class="text-red-500 mb-3 hidden">Please fill all the required fields.</div>
@@ -178,6 +189,16 @@
                 duration: 15,
                 repeat: -1,
                 ease: "linear"
+            });
+
+            // Toggle between register and login sections
+            const loginButton = document.getElementById('login-button');
+            const registerSection = document.getElementById('register-section');
+            const loginSection = document.getElementById('login-section');
+
+            loginButton.addEventListener('click', function() {
+                registerSection.style.display = 'none';
+                loginSection.style.display = 'block';
             });
         });
     </script>
