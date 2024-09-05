@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,27 +14,35 @@
             color: red;
             margin-left: 0.25rem;
         }
+
         .input-container {
             position: relative;
         }
+
         .input-container .asterisk {
             position: absolute;
-            right: 0.5rem; /* Adjust this value to position asterisk left of eye icon */
+            right: 0.5rem;
+            /* Adjust this value to position asterisk left of eye icon */
             top: 50%;
             transform: translateY(-50%);
             color: red;
         }
+
         .input-container .eye-icon {
             position: absolute;
-            right: 2rem; /* Adjust this value to position eye icon */
+            right: 2rem;
+            /* Adjust this value to position eye icon */
             top: 50%;
             transform: translateY(-50%);
             cursor: pointer;
             color: gray;
         }
+
         .input-container .input-field {
-            padding-right: 2.5rem; /* Extra space for the eye icon */
+            padding-right: 2.5rem;
+            /* Extra space for the eye icon */
         }
+
         .scrolling-text-container {
             overflow: hidden;
             white-space: nowrap;
@@ -43,156 +52,207 @@
             background-color: #f3f4f6;
             padding: 1rem 0;
         }
+
         .scrolling-text {
             display: inline-block;
-            padding-left: 100%;
             font-size: 1.25rem;
             color: #333;
+            animation: scrollText 10s linear infinite;
         }
+
+        @keyframes scrollText {
+            0% {
+                transform: translateX(100%);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
         @media (max-width: 768px) {
             #login-section {
                 display: none;
             }
+
             #login-button {
                 display: block;
             }
+
             #back-to-home {
                 display: none;
             }
         }
     </style>
 </head>
+
 <body class="bg-[#EDE8F5]">
     <!-- Loading Spinner -->
-    <div class="fixed inset-0 bg-white bg-opacity-90 z-50 flex flex-col items-center justify-center" id="spinner-wrapper">
+    <div class="fixed inset-0 bg-white bg-opacity-90 z-50 flex flex-col items-center justify-center"
+        id="spinner-wrapper">
         <div class="w-16 h-16 border-8 border-gray-200 border-t-blue-500 rounded-full animate-spin"></div>
         <div class="mt-4 text-xl text-blue-500">Please wait...</div>
     </div>
 
     <%- include('../partials/header') %>
 
-    <!-- Scrolling Text Section -->
-    <div class="scrolling-text-container">
-        <div class="scrolling-text mt-10">
-            Discover the latest trends in watches at WatchOn - Your ultimate destination for luxury and everyday timepieces!
-        </div>
-    </div>
-
-    <!-- Introduction Section -->
-    <section class="py-12 px-4 text-center mt-18 rounded-lg shadow-lg">
-        <div class="container mx-auto mt-4 desc">
-            <h1 class="text-4xl mb-2">Welcome to <span class="text-blue-400 font-semibold">WatchOn</span></h1>
-            <p class="text-xl mb-2 text-black">WatchOn is your ultimate destination for discovering and managing the latest trends in watches. Whether you’re looking for luxury timepieces or stylish everyday wear, we’ve got you covered.</p>
-            <p class="text-xl text-black">Join us and explore a curated collection of watches that blend timeless elegance with modern sophistication. Start your journey with WatchOn by creating your account today!</p>
-        </div>
-    </section>
-
-    <% if(error && error.length > 0) { %>
-        <div class="absolute top-14 left-1/2 transform -translate-x-1/2 p-3 rounded-md bg-red-500 md:top-20 lg:top-24 xl:top-28 2xl:top-32">
-            <span class="inline-block mt-1 mb-1 text-white">
-                <%= error %>
-            </span>
-        </div>
-    <% } %>
-
-    <div class="min-h-screen flex flex-col md:flex-row px-4 md:px-20 items-center mt-10 md:mt-[-13rem]">
-        <!-- Registration Form -->
-        <div class="w-full md:w-1/2 flex flex-col items-center justify-center md:h-screen pt-10 md:pt-20">
-            <div class="w-full md:px-10 px-4 welcome mb-10 md:mb-0" id="register-section">
-                <h4 class="text-2xl mb-5 text-center">Create your account</h4>
-                <div id="register-error" class="text-red-500 mb-3 hidden">Please fill all the required fields.</div>
-                <form autocomplete="off" action="/users/register" method="post" id="register-form">
-                    <div class="input-container mb-3">
-                        <input id="register-fullname" class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200 input-field" 
-                               type="text" placeholder="Full Name" name="fullname" autocomplete="name" aria-required="true">
-                        <span class="asterisk">*</span>
-                    </div>
-                    <div class="input-container mb-3">
-                        <input id="register-email" class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200 input-field" 
-                               type="email" placeholder="Email" name="email" autocomplete="email" aria-required="true">
-                        <span class="asterisk">*</span>
-                    </div>
-                    <div class="input-container mb-3">
-                        <input id="register-password" class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md border-zinc-200 input-field" 
-                               type="password" placeholder="Password" name="password" autocomplete="new-password" aria-required="true">
-                        <span class="asterisk">*</span>
-                        <i id="register-password-icon" class="eye-icon fas fa-eye" onclick="togglePasswordVisibility('register-password')"></i>
-                    </div>
-                    <input id="register-submit" class="px-5 rounded-full py-3 mt-2 bg-blue-500 text-white w-full cursor-pointer hover:bg-blue-800" 
-                           type="submit" value="Create My Account">
-                </form>
-                <h1 class="text-blue-500 pt-[1.5rem] text-center block md:hidden">Already have an account</h1>
-                <button id="login-button" class="mt-4 px-5 py-3 bg-blue-500 text-white rounded-full w-full cursor-pointer md:hidden "> Login</button>
+        <!-- Scrolling Text Section -->
+        <div class="scrolling-text-container">
+            <div class="scrolling-text mt-10 z-10">
+                Discover the latest trends in watches at WatchOn - Your ultimate destination for luxury and everyday
+                timepieces!
             </div>
         </div>
 
-        <!-- Login Form -->
-        <div class="w-full md:w-1/2 flex flex-col items-center justify-center md:h-screen pt-[8.5rem]" id="login-section">
-            <div class="w-full md:px-10 px-4 login mt-[-7rem] md:mt-0">
-                <h4 class="text-2xl capitalize mb-5 text-center">Login to your account</h4>
-                <div id="login-error" class="text-red-500 mb-3 hidden">Please fill all the required fields.</div>
-                <form autocomplete="off" action="/users/login" method="post" id="login-form">
-                    <div class="input-container mb-3">
-                        <input id="login-email" class="block bg-zinc-100 w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200 input-field" 
-                               type="email" placeholder="Email" name="email" autocomplete="email" aria-required="true">
-                        <span class="asterisk">*</span>
-                    </div>
-                    <div class="input-container mb-3">
-                        <input id="login-password" class="block bg-zinc-100 w-full px-3 py-2 border-[1px] rounded-md border-zinc-200 input-field" 
-                               type="password" placeholder="Password" name="password" autocomplete="current-password" aria-required="true">
-                        <span class="asterisk">*</span>
-                        <i id="login-password-icon" class="eye-icon fas fa-eye" onclick="togglePasswordVisibility('login-password')"></i>
-                    </div>
-                    <input id="login-submit" class="px-5 block rounded-full py-3 mt-2 bg-blue-500 text-white w-full cursor-pointer hover:bg-blue-800" 
-                           type="submit" value="Login">
-                </form>
+        <!-- Introduction Section -->
+        <section class="py-12 px-4 text-center mt-18 rounded-lg shadow-lg">
+            <div class="container mx-auto mt-4 desc">
+                <h1 class="text-4xl mb-2">Welcome to <span class="text-blue-400 font-semibold">WatchOn</span></h1>
+                <p class="text-xl mb-2 text-black">WatchOn is your ultimate destination for discovering and managing the
+                    latest trends in watches. Whether you’re looking for luxury timepieces or stylish everyday wear,
+                    we’ve got you covered.</p>
+                <p class="text-xl text-black">Join us and explore a curated collection of watches that blend timeless
+                    elegance with modern sophistication. Start your journey with WatchOn by creating your account today!
+                </p>
             </div>
-        </div>
+        </section>
 
-        <!-- Back to Home Link -->
-        <h2 id="back-to-home" class="text-blue-500 underline cursor-pointer block md:hidden text-center mt-5">Back to Home</h2>
-    </div>
+        <% if(error && error.length> 0) { %>
+            <div
+                class="absolute top-14 left-1/2 transform -translate-x-1/2 p-3 rounded-md bg-red-500 md:top-20 lg:top-24 xl:top-28 2xl:top-32">
+                <span class="inline-block mt-1 mb-1 text-white">
+                    <%= error %>
+                </span>
+            </div>
+            <% } %>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoU8Sz64wXOn3kP6hP5B92s7fqwhfYQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" integrity="sha512-1LB39/7kjsZm5lH6GGm3xU5AL3N9pC2C7d1YsUMwzPUAs03GSZUmjflvF0ytshHoB/W8BdA4h1tFWqFg1vPlJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js" integrity="sha512-K6Ih4GmGe4k8W1XcOGIfBdQsTKFpoZkAljEXi9OBeEp1n7sXYwDccAsS7m7qlH5bI2r9T/ZKkdSbnl9+eufKvQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const spinnerWrapper = document.getElementById('spinner-wrapper');
-            spinnerWrapper.style.display = 'none';
+                <div class="min-h-screen flex flex-col md:flex-row px-4 md:px-20 items-center mt-10 md:mt-[-13rem]">
+                    <!-- Registration Form -->
+                    <div class="w-full md:w-1/2 flex flex-col items-center justify-center md:h-screen pt-10 md:pt-20">
+                        <div class="w-full md:px-10 px-4 welcome mb-10 md:mb-0" id="register-section">
+                            <h4 class="text-2xl mb-5 text-center">Create your account</h4>
+                            <div id="register-error" class="text-red-500 mb-3 hidden">Please fill all the required
+                                fields.</div>
+                            <form autocomplete="off" action="/users/register" method="post" id="register-form">
+                                <div class="input-container mb-3">
+                                    <input id="register-fullname"
+                                        class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200 input-field"
+                                        type="text" placeholder="Full Name" name="fullname" autocomplete="name"
+                                        aria-required="true">
+                                    <span class="asterisk">*</span>
+                                </div>
+                                <div class="input-container mb-3">
+                                    <input id="register-email"
+                                        class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200 input-field"
+                                        type="email" placeholder="Email" name="email" autocomplete="email"
+                                        aria-required="true">
+                                    <span class="asterisk">*</span>
+                                </div>
+                                <div class="input-container mb-3">
+                                    <input id="register-password"
+                                        class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md border-zinc-200 input-field"
+                                        type="password" placeholder="Password" name="password"
+                                        autocomplete="new-password" aria-required="true">
+                                    <span class="asterisk">*</span>
+                                    <i id="register-password-icon" class="eye-icon fas fa-eye"
+                                        onclick="togglePasswordVisibility('register-password')"></i>
+                                </div>
+                                <input id="register-submit"
+                                    class="px-5 rounded-full py-3 mt-2 bg-blue-500 text-white w-full cursor-pointer hover:bg-blue-800"
+                                    type="submit" value="Create My Account">
+                            </form>
+                            <h1 class="text-blue-500 pt-[1.5rem] text-center block md:hidden">Already have an account
+                            </h1>
+                            <button id="login-button"
+                                class="mt-4 px-5 py-3 bg-blue-500 text-white rounded-full w-full cursor-pointer md:hidden ">
+                                Login</button>
+                        </div>
+                    </div>
 
-            // Toggle between register and login sections
-            const loginButton = document.getElementById('login-button');
-            const registerSection = document.getElementById('register-section');
-            const loginSection = document.getElementById('login-section');
-            const backToHome = document.getElementById('back-to-home');
+                    <!-- Login Form -->
+                    <div class="w-full md:w-1/2 flex flex-col items-center justify-center md:h-screen pt-[8.5rem]"
+                        id="login-section">
+                        <div class="w-full md:px-10 px-4 login mt-[-7rem] md:mt-0">
+                            <h4 class="text-2xl capitalize mb-5 text-center">Login to your account</h4>
+                            <div id="login-error" class="text-red-500 mb-3 hidden">Please fill all the required fields.
+                            </div>
+                            <form autocomplete="off" action="/users/login" method="post" id="login-form">
+                                <div class="input-container mb-3">
+                                    <input id="login-email"
+                                        class="block bg-zinc-100 w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200 input-field"
+                                        type="email" placeholder="Email" name="email" autocomplete="email"
+                                        aria-required="true">
+                                    <span class="asterisk">*</span>
+                                </div>
+                                <div class="input-container mb-3">
+                                    <input id="login-password"
+                                        class="block bg-zinc-100 w-full px-3 py-2 border-[1px] rounded-md border-zinc-200 input-field"
+                                        type="password" placeholder="Password" name="password"
+                                        autocomplete="current-password" aria-required="true">
+                                    <span class="asterisk">*</span>
+                                    <i id="login-password-icon" class="eye-icon fas fa-eye"
+                                        onclick="togglePasswordVisibility('login-password')"></i>
+                                </div>
+                                <input id="login-submit"
+                                    class="px-5 block rounded-full py-3 mt-2 bg-blue-500 text-white w-full cursor-pointer hover:bg-blue-800"
+                                    type="submit" value="Login">
+                            </form>
+                        </div>
+                    </div>
 
-            loginButton.addEventListener('click', function() {
-                registerSection.style.display = 'none';
-                loginSection.style.display = 'block';
-                backToHome.style.display = 'block'; // Show "Back to Home" text
-            });
+                    <!-- Back to Home Link -->
+                    <h2 id="back-to-home"
+                        class="text-blue-500 underline cursor-pointer block md:hidden text-center mt-5">Back to Home
+                    </h2>
+                </div>
 
-            backToHome.addEventListener('click', function() {
-                loginSection.style.display = 'none';
-                registerSection.style.display = 'block';
-                backToHome.style.display = 'none'; // Hide "Back to Home" text
-            });
-        });
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+                    integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoU8Sz64wXOn3kP6hP5B92s7fqwhfYQ=="
+                    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
+                    integrity="sha512-1LB39/7kjsZm5lH6GGm3xU5AL3N9pC2C7d1YsUMwzPUAs03GSZUmjflvF0ytshHoB/W8BdA4h1tFWqFg1vPlJA=="
+                    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"
+                    integrity="sha512-K6Ih4GmGe4k8W1XcOGIfBdQsTKFpoZkAljEXi9OBeEp1n7sXYwDccAsS7m7qlH5bI2r9T/ZKkdSbnl9+eufKvQ=="
+                    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const spinnerWrapper = document.getElementById('spinner-wrapper');
+                        spinnerWrapper.style.display = 'none';
 
-        function togglePasswordVisibility(fieldId) {
-            const passwordField = document.getElementById(fieldId);
-            const eyeIcon = document.getElementById(`${fieldId}-icon`);
-            if (passwordField.type === 'password') {
-                passwordField.type = 'text';
-                eyeIcon.classList.remove('fa-eye');
-                eyeIcon.classList.add('fa-eye-slash');
-            } else {
-                passwordField.type = 'password';
-                eyeIcon.classList.remove('fa-eye-slash');
-                eyeIcon.classList.add('fa-eye');
-            }
-        }
-    </script>
+                        // Toggle between register and login sections
+                        const loginButton = document.getElementById('login-button');
+                        const registerSection = document.getElementById('register-section');
+                        const loginSection = document.getElementById('login-section');
+                        const backToHome = document.getElementById('back-to-home');
+
+                        loginButton.addEventListener('click', function () {
+                            registerSection.style.display = 'none';
+                            loginSection.style.display = 'block';
+                            backToHome.style.display = 'block'; // Show "Back to Home" text
+                        });
+
+                        backToHome.addEventListener('click', function () {
+                            loginSection.style.display = 'none';
+                            registerSection.style.display = 'block';
+                            backToHome.style.display = 'none'; // Hide "Back to Home" text
+                        });
+                    });
+
+                    function togglePasswordVisibility(fieldId) {
+                        const passwordField = document.getElementById(fieldId);
+                        const eyeIcon = document.getElementById(`${fieldId}-icon`);
+                        if (passwordField.type === 'password') {
+                            passwordField.type = 'text';
+                            eyeIcon.classList.remove('fa-eye');
+                            eyeIcon.classList.add('fa-eye-slash');
+                        } else {
+                            passwordField.type = 'password';
+                            eyeIcon.classList.remove('fa-eye-slash');
+                            eyeIcon.classList.add('fa-eye');
+                        }
+                    }
+                </script>
 </body>
+
 </html>

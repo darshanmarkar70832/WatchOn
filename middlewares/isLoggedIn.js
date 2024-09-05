@@ -8,6 +8,10 @@ module.exports = async (req, res, next) => {
             return res.redirect("/");
         }
 
+        if (!process.env.JWT_KEY) {
+            throw new Error("JWT_KEY is not defined in .env file");
+        }
+
         const decoded = jwt.verify(req.cookies.token, process.env.JWT_KEY);
         const user = await userModel.findOne({ email: decoded.email }).select("-password");
 
@@ -16,12 +20,7 @@ module.exports = async (req, res, next) => {
             return res.redirect("/");
         }
 
-        // if (user.role !== "admin") {
-        //     req.flash("error", "Unauthorized access!");
-        //     return res.redirect("/");
-        // }
-
-        req.user = user; // Attach user object to request
+        req.user = user;
         next();
     } catch (error) {
         console.error("Authentication error:", error);

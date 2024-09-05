@@ -4,6 +4,7 @@ const userModel = require("../models/usermodel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { generateToken } = require("../utils/generateToken");
+const isLoggedIn = require("../middlewares/isLoggedIn");
 
 // Register a new user
 router.post("/register", async (req, res) => {
@@ -56,6 +57,29 @@ router.post("/login", async (req, res) => {
 router.get("/logout", (req, res) => {
     res.clearCookie("token");
     res.redirect("/");
+});
+
+// Delete product from cart
+router.get("/cart/delete/:id",isLoggedIn, async (req, res) => {
+    try {
+        const productId = req.params.id;
+        const token = req.cookies.token;
+        if (!token) return res.redirect("/login");
+
+        const decoded = jwt.verify(token, process.env.JWT_KEY);
+        const user = await userModel.findById(decoded.id);
+
+        if (!user) return res.redirect("/login");
+
+        // Remove the product from the cart
+        user.cart = user.cart.filter(item => item.toString() !== productId);
+        await user.save();
+
+        res.redirect("/cart");
+    } catch (error) {
+        console.error(error);
+        res.status(500).send(error.message);
+    }
 });
 
 module.exports = router;

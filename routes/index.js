@@ -14,6 +14,7 @@ router.get("/intro", isLoggedIn, (req, res) => {
     res.render("intro");
 });
 
+
 router.get("/shop", isLoggedIn, async (req, res) => {
     try {
         let products = await productModel.find();
