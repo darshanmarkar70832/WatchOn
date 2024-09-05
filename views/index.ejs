@@ -56,6 +56,9 @@
             #login-button {
                 display: block;
             }
+            #back-to-home {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -100,19 +103,23 @@
                 <div id="register-error" class="text-red-500 mb-3 hidden">Please fill all the required fields.</div>
                 <form autocomplete="off" action="/users/register" method="post" id="register-form">
                     <div class="input-container mb-3">
-                        <input id="register-fullname" class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200 input-field" type="text" placeholder="Full Name" name="fullname" aria-required="true">
+                        <input id="register-fullname" class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200 input-field" 
+                               type="text" placeholder="Full Name" name="fullname" autocomplete="name" aria-required="true">
                         <span class="asterisk">*</span>
                     </div>
                     <div class="input-container mb-3">
-                        <input id="register-email" class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200 input-field" type="email" placeholder="Email" name="email" aria-required="true">
+                        <input id="register-email" class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200 input-field" 
+                               type="email" placeholder="Email" name="email" autocomplete="email" aria-required="true">
                         <span class="asterisk">*</span>
                     </div>
                     <div class="input-container mb-3">
-                        <input id="register-password" class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md border-zinc-200 input-field" type="password" placeholder="Password" name="password" aria-required="true">
+                        <input id="register-password" class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md border-zinc-200 input-field" 
+                               type="password" placeholder="Password" name="password" autocomplete="new-password" aria-required="true">
                         <span class="asterisk">*</span>
                         <i id="register-password-icon" class="eye-icon fas fa-eye" onclick="togglePasswordVisibility('register-password')"></i>
                     </div>
-                    <input id="register-submit" class="px-5 rounded-full py-3 mt-2 bg-blue-500 text-white w-full cursor-pointer hover:bg-blue-800" type="submit" value="Create My Account">
+                    <input id="register-submit" class="px-5 rounded-full py-3 mt-2 bg-blue-500 text-white w-full cursor-pointer hover:bg-blue-800" 
+                           type="submit" value="Create My Account">
                 </form>
                 <h1 class="text-blue-500 pt-[1.5rem] text-center block md:hidden">Already have an account</h1>
                 <button id="login-button" class="mt-4 px-5 py-3 bg-blue-500 text-white rounded-full w-full cursor-pointer md:hidden "> Login</button>
@@ -126,82 +133,66 @@
                 <div id="login-error" class="text-red-500 mb-3 hidden">Please fill all the required fields.</div>
                 <form autocomplete="off" action="/users/login" method="post" id="login-form">
                     <div class="input-container mb-3">
-                        <input id="login-email" class="block bg-zinc-100 w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200 input-field" type="email" placeholder="Email" name="email" aria-required="true">
+                        <input id="login-email" class="block bg-zinc-100 w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200 input-field" 
+                               type="email" placeholder="Email" name="email" autocomplete="email" aria-required="true">
                         <span class="asterisk">*</span>
                     </div>
                     <div class="input-container mb-3">
-                        <input id="login-password" class="block bg-zinc-100 w-full px-3 py-2 border-[1px] rounded-md border-zinc-200 input-field" type="password" placeholder="Password" name="password" aria-required="true">
+                        <input id="login-password" class="block bg-zinc-100 w-full px-3 py-2 border-[1px] rounded-md border-zinc-200 input-field" 
+                               type="password" placeholder="Password" name="password" autocomplete="current-password" aria-required="true">
                         <span class="asterisk">*</span>
                         <i id="login-password-icon" class="eye-icon fas fa-eye" onclick="togglePasswordVisibility('login-password')"></i>
                     </div>
-                    <input id="login-submit" class="px-5 block rounded-full py-3 mt-2 bg-blue-500 text-white w-full cursor-pointer hover:bg-blue-800" type="submit" value="Login">
+                    <input id="login-submit" class="px-5 block rounded-full py-3 mt-2 bg-blue-500 text-white w-full cursor-pointer hover:bg-blue-800" 
+                           type="submit" value="Login">
                 </form>
             </div>
         </div>
+
+        <!-- Back to Home Link -->
+        <h2 id="back-to-home" class="text-blue-500 underline cursor-pointer block md:hidden text-center mt-5">Back to Home</h2>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoU8Sz64wXOn3kP6hP5B92s7fqwhfYQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" integrity="sha512-1LB39/7kjsZm5lH6GGm3xU5AL3N9pC2C7d1YsUMwzPUAs03GSZUmjflvF0ytshHoB/W8BdA4h1tFWqFg1vPlJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js" integrity="sha512-K6Ih4GmGe4k8W1XcOGIfBdQsTKFpoZkAljEXi9OBeEp1n7sXYwDccAsS7m7qlH5bI2r9T/ZKkdSbnl9+eufKvQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // GSAP animations
-            gsap.from(".welcome", {
-                x: -200,
-                opacity: 0,
-                delay: 0.2,
-                duration: 1
-            });
-            gsap.from(".login", {
-                x: 200,
-                opacity: 0,
-                delay: 0.2,
-                duration: 1
-            });
-            gsap.from(".desc", {
-                y: -200,
-                opacity: 0,
-                delay: 0.2,
-                duration: 1
-            });
-
-            // Hide the spinner after the page loads
             const spinnerWrapper = document.getElementById('spinner-wrapper');
             spinnerWrapper.style.display = 'none';
-
-            // Toggle password visibility
-            window.togglePasswordVisibility = function(id) {
-                const input = document.getElementById(id);
-                const icon = document.getElementById(id + '-icon');
-                if (input.type === 'password') {
-                    input.type = 'text';
-                    icon.classList.remove('fa-eye');
-                    icon.classList.add('fa-eye-slash');
-                } else {
-                    input.type = 'password';
-                    icon.classList.remove('fa-eye-slash');
-                    icon.classList.add('fa-eye');
-                }
-            };
-
-            // GSAP scrolling text animation
-            gsap.to(".scrolling-text", {
-                xPercent: -100,
-                duration: 15,
-                repeat: -1,
-                ease: "linear"
-            });
 
             // Toggle between register and login sections
             const loginButton = document.getElementById('login-button');
             const registerSection = document.getElementById('register-section');
             const loginSection = document.getElementById('login-section');
+            const backToHome = document.getElementById('back-to-home');
 
             loginButton.addEventListener('click', function() {
                 registerSection.style.display = 'none';
                 loginSection.style.display = 'block';
+                backToHome.style.display = 'block'; // Show "Back to Home" text
+            });
+
+            backToHome.addEventListener('click', function() {
+                loginSection.style.display = 'none';
+                registerSection.style.display = 'block';
+                backToHome.style.display = 'none'; // Hide "Back to Home" text
             });
         });
+
+        function togglePasswordVisibility(fieldId) {
+            const passwordField = document.getElementById(fieldId);
+            const eyeIcon = document.getElementById(`${fieldId}-icon`);
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordField.type = 'password';
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            }
+        }
     </script>
-    
 </body>
 </html>
