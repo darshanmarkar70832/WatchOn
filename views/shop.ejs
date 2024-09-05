@@ -244,30 +244,30 @@
         <button onclick="openPopup('terms-popup')">Terms & Conditions</button>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
-    integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoU8Sz64wXOn3kP6hP5B92s7fqwhfYQ=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+                                    integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoU8Sz64wXOn3kP6hP5B92s7fqwhfYQ=="
+                                    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+                                <script>
 
-    const products = document.getElementById("products");
+                                    const products = document.getElementById("products");
 
-    document.addEventListener('DOMContentLoaded', function () {
-        gsap.from(products, {
-            duration: 1,
-            y: 200,
-            opacity: 0,
-            ease: "power3.out"
-        });
-    });
+                                    document.addEventListener('DOMContentLoaded', function () {
+                                        gsap.from(products, {
+                                            duration: 1,
+                                            y: 200,
+                                            opacity: 0,
+                                            ease: "power3.out"
+                                        });
+                                    });
 
-    function openPopup(id) {
-        document.getElementById(id).style.display = 'block';
-    }
+                                    function openPopup(id) {
+                                        document.getElementById(id).style.display = 'block';
+                                    }
 
-    function closePopup(id) {
-        document.getElementById(id).style.display = 'none';
-    }
-</script>
+                                    function closePopup(id) {
+                                        document.getElementById(id).style.display = 'none';
+                                    }
+                                </script>
 </body>
 
 </html>
