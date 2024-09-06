@@ -8,6 +8,7 @@ const productSchema = new mongoose.Schema({
     bgcolor: { type: String, required: true },
     panelcolor: { type: String, required: true },
     textcolor: { type: String, required: true },
+    details: { type: String, required: true },
     availability: { type: Boolean, default: true }, // New field for availability
     createdAt: { type: Date, default: Date.now }
 });

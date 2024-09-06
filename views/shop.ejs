@@ -93,7 +93,7 @@
         box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
         z-index: 1000;
         bottom: 0;
-        font-size: 0.5rem;
+        font-size: 0.7rem;
         }
 
         .footer button {
@@ -172,7 +172,7 @@
                 </div>
             </div>
             
-            <div class="w-full sm:w-[75%] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6" id="products">
+            <div class="w-full sm:w-[75%] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-[2.5rem]" id="products">
                 <% products.forEach(function(product, index) { %>
                     <div class="w-full" id="product<%= index %>">
                         <div class="w-full h-52 flex items-center justify-center bg-[<%= product.bgcolor %>]">
@@ -187,6 +187,7 @@
                                 <i class="ri-add-line"></i>
                             </a>
                         </div>
+                        <a class="block text-center mt-2 text-blue-600 hover:underline" href="/products/<%= product._id %>">View Details</a>
                     </div>
                 <% }) %>
             </div>
@@ -224,21 +225,23 @@
             <li>The contents of the Website and the Services are proprietary to Us and you will not have any authority to claim any intellectual property rights, title, or interest in its contents.</li>
             <li>You acknowledge that unauthorized use of the Website or the Services may lead to action against you as per these Terms or applicable laws.</li>
             <li>You agree to pay us the charges associated with availing the Services.</li>
-            <li>You agree not to use the website and/ or Services for any purpose that is unlawful, illegal or forbidden by these Terms, or Indian or local laws that might apply to you.</li>
+            <li>You agree not to use the website and/or Services for any purpose that is unlawful, illegal or forbidden by these Terms, or Indian or local laws that might apply to you.</li>
             <li>You agree and acknowledge that website and the Services may contain links to other third-party websites. On accessing these links, you will be governed by the terms of use, privacy policy, and such other policies of such third-party websites.</li>
             <li>You understand that upon initiating a transaction for availing the Services you are entering into a legally binding and enforceable contract with us for the Services.</li>
-            <li>You shall be entitled to claim a refund of the payment made by you in case we are not able to provide the Service. The timelines for such return and refund will be according to the specific Service you have availed or within the time period provided in our policies (as applicable). In case you do not raise a refund claim within the stipulated time, then this would make you ineligible for a refund.</li>
-            <li>Notwithstanding anything contained in these Terms, the parties shall not be liable for any failure to perform an obligation under these Terms if performance is prevented or delayed by a force majeure event.</li>
+            <li>You shall be entitled to claim a refund of the payment made by you in case we are not able to provide the Service. The refund will be credited to your bank account within 5 to 7 working days. If you do not raise a refund claim within the stipulated time, you may become ineligible for a refund.</li>
+            <li>Not withstanding anything contained in these Terms, the parties shall not be liable for any failure to perform an obligation under these Terms if performance is prevented or delayed by a force majeure event.</li>
             <li>These Terms and any dispute or claim relating to it, or its enforceability, shall be governed by and construed in accordance with the laws of India.</li>
-            <li>All disputes arising out of or in connection with these Terms shall be subject to the exclusive jurisdiction of the courts in Bhayandar, Maharashtra.</li>
+            <li>All disputes arising out of or in connection with these Terms shall be subject to the exclusive jurisdiction of the courts in Mumbai, Maharashtra.</li>
             <li>All concerns or communications relating to these Terms must be communicated to us using the contact information provided on this website.</li>
         </ul>
         <p>We do not store or collect any sensitive financial information such as credit/debit card details or bank account details on our website.</p>
         <p>We are not responsible for the accuracy of any other information you may receive by following links to third-party websites. Our website may include links to other websites that are owned or controlled by third parties. We do not control the content of such websites and are not responsible for any damages arising from accessing those websites. Any link to another website is not an endorsement of the website or its contents.</p>
         <p>We may revise these terms from time to time. The most current version of the terms will always be on our website, and you are expected to check for any updates.</p>
         <p>These Terms constitute the entire agreement between you and us in relation to the use of our Services.</p>
+        <p><strong>Shipping Policy:</strong> Orders are processed and shipped within 2 to 5 business days. Delivery timelines may vary depending on your location, but typically range from 5 to 10 business days.</p>
         <p>Last Updated: 03-09-2024</p>
     </div>
+    
 
     <!-- Footer -->
     <div class="footer" id="footer">

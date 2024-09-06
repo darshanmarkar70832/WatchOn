@@ -4,10 +4,15 @@ const upload = require("../config/multer-config");
 const productModel = require("../models/product-model");
 const userModel = require("../models/usermodel");
 
+// Route to render product creation form
+router.get("/createproducts", (req, res) => {
+    res.render("createproducts");
+});
+
 // Route to create a product
 router.post("/create", upload.single("image"), async (req, res) => {
     try {
-        let { name, price, discount, bgcolor, panelcolor, textcolor, availability } = req.body;
+        let { name, price, discount, bgcolor, panelcolor, textcolor, details, availability } = req.body;
 
         let product = await productModel.create({
             image: req.file.buffer,
@@ -17,6 +22,7 @@ router.post("/create", upload.single("image"), async (req, res) => {
             bgcolor,
             panelcolor,
             textcolor,
+            details,
             availability: availability === "true" // Convert string to boolean
         });
         req.flash("success", "Your product has been created successfully!");
@@ -73,9 +79,18 @@ router.get("/filter/discount", async (req, res) => {
     }
 });
 
-// Route to render product creation form
-router.get("/createproducts", (req, res) => {
-    res.render("createproducts");
+// Route to render product details
+router.get('/:id', async (req, res) => {
+    try {
+        const product = await productModel.findById(req.params.id);
+        if (!product) {
+            return res.status(404).send('Product not found');
+        }
+        res.render('details', { product });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server error');
+    }
 });
 
 module.exports = router;

@@ -57,7 +57,7 @@
             display: inline-block;
             font-size: 1.25rem;
             color: #333;
-            animation: scrollText 10s linear infinite;
+            animation: scrollText 13s linear infinite;
         }
 
         @keyframes scrollText {
@@ -106,16 +106,17 @@
 
         <!-- Introduction Section -->
         <section class="py-12 px-4 text-center mt-18 rounded-lg shadow-lg">
-            <div class="container mx-auto mt-4 desc">
-                <h1 class="text-4xl mb-2">Welcome to <span class="text-blue-400 font-semibold">WatchOn</span></h1>
-                <p class="text-xl mb-2 text-black">WatchOn is your ultimate destination for discovering and managing the
+            <div class="container mx-auto mt-[-1rem] desc ">
+                <h1 class="text-4xl mb-[4.5rem] gsap1 ">Welcome to <span class="gsap1 text-blue-400 font-semibold mb-2">WatchOn</span></h1>
+                <p class="text-xl mb-2 text-black gsap2 mt-4">WatchOn is your ultimate destination for discovering and managing the
                     latest trends in watches. Whether you’re looking for luxury timepieces or stylish everyday wear,
                     we’ve got you covered.</p>
-                <p class="text-xl text-black">Join us and explore a curated collection of watches that blend timeless
+                <p class="text-xl text-black gsap2">Join us and explore a curated collection of watches that blend timeless
                     elegance with modern sophistication. Start your journey with WatchOn by creating your account today!
                 </p>
             </div>
         </section>
+        
 
         <% if(error && error.length> 0) { %>
             <div
@@ -216,6 +217,9 @@
                     integrity="sha512-K6Ih4GmGe4k8W1XcOGIfBdQsTKFpoZkAljEXi9OBeEp1n7sXYwDccAsS7m7qlH5bI2r9T/ZKkdSbnl9+eufKvQ=="
                     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
                 <script>
+                      
+
+
                     document.addEventListener('DOMContentLoaded', function () {
                         const spinnerWrapper = document.getElementById('spinner-wrapper');
                         spinnerWrapper.style.display = 'none';
@@ -225,6 +229,24 @@
                         const registerSection = document.getElementById('register-section');
                         const loginSection = document.getElementById('login-section');
                         const backToHome = document.getElementById('back-to-home');
+
+                        gsap.from(registerSection,{
+                            x:-150,
+                            opacity:0
+                        })
+                        gsap.from(loginSection,{
+                            x:150,
+                            opacity:0
+                        })
+                        gsap.from(".gsap1",{
+                            x:-150,
+                            opacity:0
+                        })
+                        gsap.from(".gsap2",{
+                            x:150,
+                            opacity:0
+                        })
+                        
 
                         loginButton.addEventListener('click', function () {
                             registerSection.style.display = 'none';
