@@ -33,3 +33,7 @@ To set up the project locally, follow these steps:
    ```bash
    git clone https://github.com/darshanmarkar70832/watchon.git
    cd watchon
+2. Install the required dependencies
+3. Open your browser and navigate to http://localhost:3000 to view the application.
+Contributing
+Contributions are welcome! If you have suggestions for improvements or find bugs, please open an issue or submit a pull request.
