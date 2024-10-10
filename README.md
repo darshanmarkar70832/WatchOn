@@ -1,6 +1,6 @@
 # WatchOn
 
-![WatchOn Logo](https://your-logo-url.com) <!-- Replace with actual logo URL -->
+
 
 WatchOn is an e-commerce website designed for watch enthusiasts, built using Node.js, Express, and MongoDB. This platform allows users to browse, search, and purchase a variety of watches, making it a one-stop shop for all watch-related needs.
 
